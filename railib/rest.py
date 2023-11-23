@@ -162,6 +162,7 @@ def _get_access_token(ctx: Context, url: str) -> AccessToken:
     creds = ctx.credentials
     assert isinstance(creds, ClientCredentials)
     if creds.access_token is None or creds.access_token.is_expired():
+        raise RuntimeError("Must manually refresh access tokens")
         creds.access_token = _read_token_cache(creds)
         if creds.access_token is None or creds.access_token.is_expired():
             creds.access_token = _request_access_token(ctx, url)
@@ -170,6 +171,7 @@ def _get_access_token(ctx: Context, url: str) -> AccessToken:
 
 
 def _request_access_token(ctx: Context, url: str) -> AccessToken:
+    raise RuntimeError("Must manually refresh access tokens")
     creds = ctx.credentials
     assert isinstance(creds, ClientCredentials)
     # ensure the audience contains the protocol scheme

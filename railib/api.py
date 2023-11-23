@@ -881,6 +881,7 @@ def exec(
     command: str,
     inputs: dict = None,
     readonly: bool = True,
+    timeout: int = None,
     **kwargs
 ) -> TransactionAsyncResponse:
     logger.info('exec: database %s engine %s readonly %s' % (database, engine, readonly))
@@ -900,6 +901,7 @@ def exec(
         lambda: is_txn_term_state(get_transaction(ctx, txn["id"], **kwargs)["state"]),
         overhead_rate=0.2,
         start_time=start_time,
+        timeout=timeout
     )
 
     rsp.transaction = get_transaction(ctx, txn["id"], **kwargs)

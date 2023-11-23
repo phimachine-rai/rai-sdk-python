@@ -32,11 +32,13 @@ class Credentials(ABC):
 
 # Represents an OAuth access token.
 class AccessToken:
-    def __init__(self, access_token: str, scope: str, expires_in: int, created_on: float = time.time()):
+    def __init__(self, access_token: str, scope: str, expires_in: int, created_on: float =None):
         self.access_token = access_token
         self.scope = scope
         self.expires_in = expires_in
-        self.created_on = created_on
+        self.created_on = created_on if created_on is not None else time.time()
+        print("new created_on code")
+
 
     def is_expired(self):
         return (
